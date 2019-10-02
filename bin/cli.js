@@ -9,6 +9,7 @@ const fs = require('fs-extra')
 const { spawn } = require('child_process')
 
 let root
+let skeleton
 
 /**
  * init new git
@@ -40,32 +41,15 @@ const initializeYarn = path =>
   })
 
 /**
- * install extra dev packages for linting
+ * install extra dev packages from skeleleton
  */
-const installPackages = path =>
-  new Promise((resolve, reject) => {
-    const yarn = spawn(
-      'yarn',
-      [
-        'add',
-        'eslint',
-        'eslint-config-prettier',
-        'eslint-config-standard',
-        'eslint-plugin-import',
-        'eslint-plugin-node',
-        'eslint-plugin-prettier',
-        'eslint-plugin-promise',
-        'eslint-plugin-standard',
-        'lint-staged',
-        'tap',
-        'prettier',
-        'yorkie',
-        '-D'
-      ],
-      {
-        cwd: path
-      }
-    )
+const installDevPackages = (appPath, skelPath) => {
+  const skelPack = readPkgUp.sync({ cwd: skelPath })
+  const devDependencies = Object.keys(skelPack.packageJson.devDependencies)
+  return new Promise((resolve, reject) => {
+    const yarn = spawn('yarn', ['add', ...devDependencies, '-D'], {
+      cwd: appPath
+    })
     yarn.stdout.on('data', data => process.stdout.write(data))
     yarn.stderr.on('data', data => process.stderr.write(data))
     yarn.on('close', code => {
@@ -73,14 +57,38 @@ const installPackages = path =>
       reject(code)
     })
   })
+}
+
+/**
+ * install extra prod packages from skeleleton
+ */
+const installPackages = (appPath, skelPath) => {
+  const skelPack = readPkgUp.sync({ cwd: skelPath })
+  const dependencies = Object.keys(skelPack.packageJson.dependencies)
+  return new Promise((resolve, reject) => {
+    const yarn = spawn('yarn', ['add', ...dependencies], {
+      cwd: appPath
+    })
+    yarn.stdout.on('data', data => process.stdout.write(data))
+    yarn.stderr.on('data', data => process.stderr.write(data))
+    yarn.on('close', code => {
+      if (code === 0) return resolve(code)
+      reject(code)
+    })
+  })
+}
 
 /**
  * configure package.json to use linting, testing, stuff
  */
-const addPackageConfig = path => {
+const addPackageConfig = (path, skelPath) => {
+  const skelPack = readPkgUp.sync({ cwd: skelPath })
   const pack = readPkgUp.sync({ cwd: path })
   delete pack.packageJson._id
   delete pack.packageJson.readme
+
+  pack.packageJson.main = skelPack.packageJson.main
+
   pack.packageJson.scripts = Object.assign(pack.packageJson.scripts || {}, {
     start: 'pm2 start pm2-dev.config.js',
     stop: 'pm2 delete pm2-dev.config.js',
@@ -104,9 +112,8 @@ const addPackageConfig = path => {
 /**
  * copy app skeleton to destination
  */
-const copySkeleton = path => {
-  const src = path.join(__dirname, '..', 'skeleton')
-  return fs.copy(src, path, { overwrite: false })
+const copySkeleton = (appPath, skelPath) => {
+  return fs.copy(skelPath, appPath, { overwrite: false })
 }
 
 /**
@@ -127,13 +134,19 @@ cli
     root = path.resolve(process.cwd(), name)
 
     /**
+     * the root directory of chosen skeleton
+     */
+    skeleton = path.join(__dirname, '..', 'skeleton')
+
+    /**
      * setup new app
      */
     await initializeGitRepository(root)
     await initializeYarn(root)
-    await installPackages(root)
-    await addPackageConfig(root)
-    await copySkeleton(root)
+    await installDevPackages(root, skeleton)
+    await installPackages(root, skeleton)
+    await addPackageConfig(root, skeleton)
+    await copySkeleton(root, skeleton)
   })
 
 /**
