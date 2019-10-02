@@ -25,7 +25,10 @@
     ]
   },
   "dependencies": {
-    "commander": "^3.0.2"
+    "commander": "^3.0.2",
+    "fs-extra": "^8.1.0",
+    "read-pkg-up": "^7.0.0",
+    "write-pkg": "^4.0.0"
   },
   "devDependencies": {
     "eslint": "^6.5.1",
