@@ -117,6 +117,19 @@ const copySkeleton = (appPath, skelPath) => {
 }
 
 /**
+ * copy example env
+ */
+const copyEnv = (appPath, skelPath) => {
+  return fs.copy(
+    path.resolve(skelPath, '.env.example'),
+    path.join(appPath, '.env'),
+    {
+      overwrite: false
+    }
+  )
+}
+
+/**
  * define the command
  */
 cli
@@ -147,6 +160,7 @@ cli
     await installPackages(root, skeleton)
     await addPackageConfig(root, skeleton)
     await copySkeleton(root, skeleton)
+    await copyEnv(root, skeleton)
   })
 
 /**
