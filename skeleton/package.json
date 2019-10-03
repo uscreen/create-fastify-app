@@ -2,7 +2,6 @@
   "name": "new-fastify-app",
   "version": "0.0.0",
   "main": "app/server.js",
-  "license": "MIT",
   "dependencies": {
     "@uscreen.de/fastify-app": "^0.2.9",
     "env-schema": "^1.0.0",
