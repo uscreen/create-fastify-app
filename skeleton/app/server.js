@@ -2,9 +2,9 @@
 
 const fastify = require('fastify')
 const config = require('./config')
-const myapp = require('./app')
+const app = require('./app')
 
-const app = fastify({
+const server = fastify({
   logger: config.logEnabled
     ? {
         level: config.logLevel
@@ -12,17 +12,17 @@ const app = fastify({
     : false
 })
 
-app.register(myapp, config)
+server.register(app, config)
 
 /**
  * post-treatment
  */
-app.ready(err => {
+server.ready(err => {
   if (err) throw err
-  app.log.debug('Application ready, routes are set:\n' + app.printRoutes())
+  server.log.debug('server ready, routes are set:\n' + server.printRoutes())
 })
 
 /**
  * start http server
  */
-app.listen(config.httpPort, config.httpBind)
+server.listen(config.httpPort, config.httpBind)
