@@ -35,13 +35,13 @@ config.autoloads = [
 ]
 
 config.swagger = {
-  routePrefix: '/api/docs',
+  routePrefix: `${config.prefix}/docs`,
   exposeRoute: true,
   addModels: true
 }
 
 config.healthCheck = {
-  exposeStatusRoute: '/api/health'
+  exposeStatusRoute: `${config.prefix}/health`
 }
 
 module.exports = config

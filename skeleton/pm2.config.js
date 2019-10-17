@@ -22,7 +22,8 @@ module.exports = {
       'pre-setup': 'yarn add pm2 pino-pretty;',
       'post-setup':
         'cp ./.env.example ../shared/.env; ln -s ../shared/.env ./.env',
-      'post-deploy': 'yarn install --production; yarn postdeploy'
+      'post-deploy':
+        'yarn install --production; ~/node_modules/.bin/pm2 reload pm2.config.js'
     }
   }
 }

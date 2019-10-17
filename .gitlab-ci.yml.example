@@ -3,6 +3,7 @@
 # cache:
 #   paths:
 #     - node_modules/
+#     - .yarn
 
 # stages:
 #   - test
@@ -10,6 +11,6 @@
 # test:
 #   stage: test
 #   script:
-#     - yarn install
+#     - yarn install --pure-lockfile --cache-folder .yarn
 #     - yarn test:ci
 #   coverage: '/^Statements\s*:\s*([^%]+)/'

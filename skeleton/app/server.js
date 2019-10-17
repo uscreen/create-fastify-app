@@ -1,13 +1,15 @@
 'use strict'
 
 const fastify = require('fastify')
+const { name, version } = require('../package.json')
 const config = require('./config')
 const app = require('./app')
 
 const server = fastify({
   logger: config.logEnabled
     ? {
-        level: config.logLevel
+        level: config.logLevel,
+        name: `${name} (v${version}) ${process.env.NODE_APP_INSTANCE}`
       }
     : false
 })
