@@ -1,5 +1,5 @@
 const tap = require('tap')
-const { build } = require('./helper')
+const { build } = require('../helper')
 
 tap.test('Test Setup', (t) => {
   t.strictEqual(true, true, 'Tests and assertions should work')
@@ -7,14 +7,14 @@ tap.test('Test Setup', (t) => {
 })
 
 tap.test('Healthcheck', async (t) => {
-  const fastify = build(t)
-  await fastify.ready()
+  const fastify = await build(t)
+  const { prefix } = fastify.config
 
   t.test('a valid GET Request', (t) => {
     fastify.inject(
       {
         method: 'GET',
-        url: '/api/health'
+        url: `${prefix}/health`
       },
       (e, response) => {
         t.error(e)
@@ -27,14 +27,14 @@ tap.test('Healthcheck', async (t) => {
 })
 
 tap.test('Noop Service', async (t) => {
-  const fastify = build(t)
-  await fastify.ready()
+  const fastify = await build(t)
+  const { prefix } = fastify.config
 
   t.test('a valid GET Request', (t) => {
     fastify.inject(
       {
         method: 'GET',
-        url: '/api/noop'
+        url: `${prefix}/noop`
       },
       (e, response) => {
         t.error(e)
