@@ -1,41 +1,36 @@
 'use strict'
 
 const fp = require('fastify-plugin')
+const S = require('fluent-schema')
 
 /**
  * Usage of the Globaly Shared Schema feature
  */
 
-module.exports = fp(async (fastify, opts, next) => {
-  fastify.addSchema({
-    $id: 'http200',
-    type: 'object',
-    properties: {
-      statusCode: {
-        type: 'integer',
-        example: 200
-      }
-    }
-  })
+module.exports = fp((fastify, opts, next) => {
+  const addSchema = (schema) => {
+    fastify.addSchema(schema)
+    return schema
+  }
 
-  fastify.addSchema({
-    $id: 'http404',
-    type: 'object',
-    properties: {
-      statusCode: {
-        type: 'integer',
-        example: 404
-      },
-      error: {
-        type: 'string',
-        example: 'Not Found'
-      },
-      message: {
-        type: 'string',
-        example: 'Not Found'
-      }
-    }
-  })
+  /**
+   * add generic schemas
+   */
+  const noop = addSchema(S.object().id('noop').prop('noop'))
+
+  const plugin = addSchema(S.object().id('plugin').prop('plugin'))
+
+  /**
+   * combine and extend schemas
+   */
+  addSchema(
+    S.object()
+      .id('noopNplugin')
+      .required(['noop'])
+      // .prop('property') // --> strip it
+      .extend(noop)
+      .extend(plugin)
+  )
 
   next()
 })

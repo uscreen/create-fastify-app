@@ -3,10 +3,12 @@
   "version": "0.0.0",
   "main": "app/server.js",
   "dependencies": {
-    "@uscreen.de/fastify-app": "^0.4.3",
+    "@uscreen.de/fastify-app": "^0.5.0",
     "env-schema": "^1.0.0",
-    "fastify": "^2.15.3",
-    "fastify-plugin": "^1.6.0"
+    "fastify": "^3.2.0",
+    "fastify-plugin": "^2.2.0",
+    "fluent-schema": "^1.0.4",
+    "hyperid": "^2.0.5"
   },
   "devDependencies": {
     "eslint": "^7.6.0",

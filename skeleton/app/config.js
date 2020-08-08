@@ -40,7 +40,7 @@ config.swagger = {
   addModels: true
 }
 
-config.healthCheck = {
+config.health = {
   exposeStatusRoute: `${config.prefix}/health`
 }
 
