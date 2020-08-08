@@ -68,6 +68,11 @@ $ make logs
 
 ## Changelog
 
+### v0.3.0
+
+- upgraded to fastify 3.x
+- upgraded to node 12.x (LTS)
+
 ### v0.2.0
 
 - added instructions
