@@ -39,7 +39,7 @@
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "lint-staged": "^10.4.0",
+    "lint-staged": "^10.4.2",
     "prettier": "^2.1.2",
     "tap": "^14.10.8",
     "yorkie": "^2.0.0"
