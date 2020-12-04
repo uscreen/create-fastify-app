@@ -17,7 +17,7 @@ module.exports = {
       user: 'user',
       host: 'server-stage.example.com',
       ref: 'origin/master',
-      repo: repository,
+      repo: repository.url || repository,
       path: `/home/user/${name}`,
       'pre-setup': 'yarn add pm2 pino-pretty;',
       'post-setup':
