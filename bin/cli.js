@@ -14,12 +14,12 @@ let skeleton
 /**
  * init new git
  */
-const initializeGitRepository = path =>
+const initializeGitRepository = (path) =>
   new Promise((resolve, reject) => {
     const git = spawn('git', ['init', path])
-    git.stdout.on('data', data => process.stdout.write(data))
-    git.stderr.on('data', data => process.stderr.write(data))
-    git.on('close', code => {
+    git.stdout.on('data', (data) => process.stdout.write(data))
+    git.stderr.on('data', (data) => process.stderr.write(data))
+    git.on('close', (code) => {
       if (code === 0) return resolve(code)
       reject(code)
     })
@@ -28,13 +28,13 @@ const initializeGitRepository = path =>
 /**
  * init new yarn project
  */
-const initializeYarn = path =>
+const initializeYarn = (path) =>
   new Promise((resolve, reject) => {
     const yarn = spawn('yarn', ['init'], {
       cwd: path,
       stdio: [0, 1, 2]
     })
-    yarn.on('close', code => {
+    yarn.on('close', (code) => {
       if (code === 0) return resolve(code)
       reject(code)
     })
@@ -50,9 +50,9 @@ const installDevPackages = (appPath, skelPath) => {
     const yarn = spawn('yarn', ['add', ...devDependencies, '-D'], {
       cwd: appPath
     })
-    yarn.stdout.on('data', data => process.stdout.write(data))
-    yarn.stderr.on('data', data => process.stderr.write(data))
-    yarn.on('close', code => {
+    yarn.stdout.on('data', (data) => process.stdout.write(data))
+    yarn.stderr.on('data', (data) => process.stderr.write(data))
+    yarn.on('close', (code) => {
       if (code === 0) return resolve(code)
       reject(code)
     })
@@ -69,9 +69,9 @@ const installPackages = (appPath, skelPath) => {
     const yarn = spawn('yarn', ['add', ...dependencies], {
       cwd: appPath
     })
-    yarn.stdout.on('data', data => process.stdout.write(data))
-    yarn.stderr.on('data', data => process.stderr.write(data))
-    yarn.on('close', code => {
+    yarn.stdout.on('data', (data) => process.stdout.write(data))
+    yarn.stderr.on('data', (data) => process.stderr.write(data))
+    yarn.on('close', (code) => {
       if (code === 0) return resolve(code)
       reject(code)
     })
