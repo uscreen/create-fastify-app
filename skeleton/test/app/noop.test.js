@@ -2,7 +2,7 @@ const tap = require('tap')
 const { build } = require('../helper')
 
 tap.test('Test Setup', (t) => {
-  t.strictEqual(true, true, 'Tests and assertions should work')
+  t.equal(true, true, 'Tests and assertions should work')
   t.end()
 })
 

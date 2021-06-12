@@ -23,7 +23,7 @@ const build = async (t, featureSwitches = {}, ConfigOverwrite = {}) => {
     app.register(fp(App), { ...Config, ...ConfigOverwrite })
 
     // tear down our app after we are done
-    t.tearDown(app.close.bind(app))
+    t.teardown(app.close.bind(app))
 
     app.ready((err) => {
       if (err) throw err
