@@ -20,7 +20,7 @@
     "write-pkg": "^4.0.0"
   },
   "devDependencies": {
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.0",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.1",
     "husky": ">=6",
     "lint-staged": ">=10"
   },
