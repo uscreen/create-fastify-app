@@ -1,6 +1,6 @@
 {
   "name": "@uscreen.de/create-fastify-app",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "cli to create a new @uscreen.de/fastify-app",
   "main": "index.js",
   "repository": "git@gitlab.uscreen.net:uscreen/npm/create-fastify-app.git",
@@ -20,9 +20,9 @@
     "write-pkg": "^4.0.0"
   },
   "devDependencies": {
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.1",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
     "husky": ">=6",
-    "lint-staged": ">=10"
+    "lint-staged": ">=12.3.2"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
