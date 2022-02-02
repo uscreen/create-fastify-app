@@ -1,7 +1,7 @@
 'use strict'
 
 const fp = require('fastify-plugin')
-const S = require('fluent-schema')
+const S = require('fluent-json-schema')
 
 /**
  * Usage of the Globaly Shared Schema feature

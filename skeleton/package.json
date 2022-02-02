@@ -3,20 +3,20 @@
   "version": "0.0.0",
   "main": "app/server.js",
   "dependencies": {
-    "@uscreen.de/fastify-app": "^0.7.0",
-    "env-schema": "^2.0.1",
+    "@uscreen.de/fastify-app": "^0.8.0",
+    "env-schema": "^3.5.2",
     "fastify": "^3.2.0",
     "fastify-plugin": "^3.0.0",
-    "fluent-schema": "^1.0.4",
-    "hyperid": "^2.0.5"
+    "fluent-json-schema": "^3.0.1",
+    "hyperid": "^3.0.0"
   },
   "devDependencies": {
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.1.0",
-    "lint-staged": "^10.2.11",
-    "pino-pretty": "^4.1.0",
-    "pm2": "^4.4.0",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
+    "lint-staged": "^12.3.3",
+    "pino-pretty": "^7.5.1",
+    "pm2": "^5.1.2",
     "prettier": "^2.0.5",
-    "tap": "^14.6.9",
+    "tap": "^15.1.6",
     "yorkie": "^2.0.0"
   },
   "scripts": {
