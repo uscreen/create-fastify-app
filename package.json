@@ -14,7 +14,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "commander": "^8.3.0",
+    "commander": "^9.0.0",
     "fs-extra": "^10.0.0",
     "read-pkg-up": "^7.0.1",
     "write-pkg": "^4.0.0"
@@ -22,7 +22,7 @@
   "devDependencies": {
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
     "husky": ">=6",
-    "lint-staged": ">=12.3.2"
+    "lint-staged": ">=12.3.3"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
