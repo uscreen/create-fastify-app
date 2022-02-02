@@ -3,6 +3,7 @@
   "version": "0.4.4",
   "description": "cli to create a new @uscreen.de/fastify-app",
   "main": "index.js",
+  "type": "module",
   "repository": "git@gitlab.uscreen.net:uscreen/npm/create-fastify-app.git",
   "author": "Marcus Spiegel <spiegel@uscreen.de>",
   "license": "MIT",
@@ -16,8 +17,8 @@
   "dependencies": {
     "commander": "^9.0.0",
     "fs-extra": "^10.0.0",
-    "read-pkg-up": "^7.0.1",
-    "write-pkg": "^4.0.0"
+    "read-pkg-up": "^9.0.0",
+    "write-pkg": "^5.0.0"
   },
   "devDependencies": {
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
