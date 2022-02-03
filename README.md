@@ -68,6 +68,11 @@ $ make logs
 
 ## Changelog
 
+### v0.5.0
+
+- moved to esm
+- upgraded to node 16.x (LTS)
+
 ### v0.4.0
 
 - upgraded to node 14.x (LTS)
