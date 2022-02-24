@@ -5,16 +5,16 @@
   "dependencies": {
     "@uscreen.de/fastify-app": "^0.8.0",
     "env-schema": "^3.5.2",
-    "fastify": "^3.2.0",
+    "fastify": "^3.27.2",
     "fastify-plugin": "^3.0.0",
     "fluent-json-schema": "^3.0.1",
-    "hyperid": "^3.0.0"
+    "hyperid": "^3.0.1"
   },
   "devDependencies": {
     "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
-    "lint-staged": "^12.3.3",
+    "lint-staged": "^12.3.4",
     "pino-pretty": "^7.5.1",
-    "pm2": "^5.1.2",
+    "pm2": "^5.2.0",
     "prettier": "^2.0.5",
     "tap": "^15.1.6",
     "yorkie": "^2.0.0"
