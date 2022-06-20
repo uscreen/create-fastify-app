@@ -21,9 +21,9 @@
     "write-pkg": "^5.0.0"
   },
   "devDependencies": {
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.2",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.4",
     "husky": ">=8.0.1",
-    "lint-staged": ">=13.0.1"
+    "lint-staged": ">=13.0.2"
   },
   "lint-staged": {
     "*.js": "eslint --cache --fix"
