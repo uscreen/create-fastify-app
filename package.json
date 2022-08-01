@@ -15,13 +15,13 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "commander": "^9.3.0",
+    "commander": "^9.4.0",
     "fs-extra": "^10.0.1",
     "read-pkg-up": "^9.1.0",
     "write-pkg": "^5.0.0"
   },
   "devDependencies": {
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.6",
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.7",
     "husky": ">=8.0.1",
     "lint-staged": ">=13.0.3"
   },
