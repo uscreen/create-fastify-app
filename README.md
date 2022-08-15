@@ -68,6 +68,10 @@ $ make logs
 
 ## Changelog
 
+### v0.6.0
+
+- changed: use versions specified in skeleton's package.json
+
 ### v0.5.0
 
 - moved to esm
