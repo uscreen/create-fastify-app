@@ -1,6 +1,6 @@
 {
   "name": "@uscreen.de/create-fastify-app",
-  "version": "0.5.6",
+  "version": "0.6.0",
   "description": "cli to create a new @uscreen.de/fastify-app",
   "main": "index.js",
   "type": "module",
