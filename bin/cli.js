@@ -49,7 +49,10 @@ const initializeYarn = (path) =>
  */
 const installDevPackages = (appPath, skelPath) => {
   const skelPack = readPackageUpSync({ cwd: skelPath })
-  const devDependencies = Object.keys(skelPack.packageJson.devDependencies)
+  const devDependencies = Object.entries(
+    skelPack.packageJson.devDependencies
+  ).map(([key, val]) => `${key}@${val}`)
+
   return new Promise((resolve, reject) => {
     const yarn = spawn('yarn', ['add', ...devDependencies, '-D'], {
       cwd: appPath
@@ -68,7 +71,10 @@ const installDevPackages = (appPath, skelPath) => {
  */
 const installPackages = (appPath, skelPath) => {
   const skelPack = readPackageUpSync({ cwd: skelPath })
-  const dependencies = Object.keys(skelPack.packageJson.dependencies)
+  const dependencies = Object.entries(skelPack.packageJson.dependencies).map(
+    ([key, val]) => `${key}@${val}`
+  )
+
   return new Promise((resolve, reject) => {
     const yarn = spawn('yarn', ['add', ...dependencies], {
       cwd: appPath
