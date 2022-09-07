@@ -36,6 +36,15 @@ server.ready((err) => {
 })
 
 /**
+ * graceful shutdown (closing handles, etc.)
+ */
+process.on('SIGINT', async () => {
+  server.log.info(`server shutting down.`)
+  await server.close()
+  process.exit()
+})
+
+/**
  * start http server
  */
 server.listen(config.httpPort, config.httpBind)
