@@ -68,6 +68,10 @@ $ make logs
 
 ## Changelog
 
+### v0.7.0
+
+- added: graceful shutdown in skeleton
+
 ### v0.6.0
 
 - changed: use versions specified in skeleton's package.json
