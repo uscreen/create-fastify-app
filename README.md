@@ -2,7 +2,7 @@
 
 > cli to quickly bootstrap a new fastify-app
 
-This package provides the cli skript to create a new `@uscreen.de/fastify-app` from scratch. No need to install any other prerequisits than node and yarn. Features include:
+This package provides the cli skript to create a new `@uscreen.de/fastify-app` from scratch. No need to install any other prerequisites than node and yarn. Features include:
 
 * initialize new __git__ repository
 * initialize new __yarn__ package.json
@@ -49,7 +49,7 @@ new-app
 
 More Details can be found in `@uscreen.de/fastify-app` [README](https://www.npmjs.com/package/@uscreen.de/fastify-app)
 
-After creation has finished cd into the new apps directory and check it's README for options. In General you should be able to start your new app in dev mode, like so:
+After creation has finished cd into the new apps directory and check it's README for options. In general you should be able to start your new app in dev mode, like so:
 
 ```bash
 $ cd ./new-app
