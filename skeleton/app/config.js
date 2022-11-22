@@ -1,7 +1,8 @@
-'use strict'
+import path from 'path'
+import envSchema from 'env-schema'
+import { dirname } from './modules/common-esm.js'
 
-const path = require('path')
-const envSchema = require('env-schema')
+const __dirname = dirname(import.meta.url)
 
 const schema = {
   type: 'object',
@@ -34,4 +35,4 @@ config.health = {
   exposeStatusRoute: `${config.prefix}/health`
 }
 
-module.exports = config
+export default config

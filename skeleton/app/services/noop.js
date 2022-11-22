@@ -1,6 +1,4 @@
-'use strict'
-
-module.exports = (fastify, opts, next) => {
+export default (fastify, opts, next) => {
   fastify.get(
     '/noop',
     {

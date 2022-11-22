@@ -1,13 +1,11 @@
-'use strict'
-
-const fp = require('fastify-plugin')
-const S = require('fluent-json-schema')
+import fp from 'fastify-plugin'
+import S from 'fluent-json-schema'
 
 /**
  * Usage of the Globaly Shared Schema feature
  */
 
-module.exports = fp((fastify, opts, next) => {
+export default fp((fastify, opts, next) => {
   const addSchema = (schema) => {
     fastify.addSchema(schema)
     return schema

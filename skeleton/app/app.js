@@ -1,10 +1,8 @@
-'use strict'
+import fastifyApp from '@uscreen.de/fastify-app'
+import fp from 'fastify-plugin'
+import schemas from './schemas.js'
 
-const fastifyApp = require('@uscreen.de/fastify-app')
-const fp = require('fastify-plugin')
-const schemas = require('./schemas')
-
-module.exports = fp((fastify, opts, next) => {
+export default fp((fastify, opts, next) => {
   /**
    * add schemas
    */

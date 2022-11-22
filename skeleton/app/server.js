@@ -1,10 +1,10 @@
-'use strict'
+import fastify from 'fastify'
+import hyperid from 'hyperid'
+import config from './config.js'
+import app from './app.js'
+import { json } from './modules/common-esm.js'
 
-const fastify = require('fastify')
-const hyperid = require('hyperid')
-const { name, version } = require('../package.json')
-const config = require('./config')
-const app = require('./app')
+const { name, version } = json(import.meta.url, '../package.json')
 
 const instance = hyperid({ urlSafe: true })
 

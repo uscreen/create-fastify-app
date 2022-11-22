@@ -23,7 +23,7 @@ module.exports = {
       'post-setup':
         'cp ./.env.example ../shared/.env; ln -s ../shared/.env ./.env',
       'post-deploy':
-        'yarn install --production; ~/node_modules/.bin/pm2 reload pm2.config.js'
+        'yarn install --production; ~/node_modules/.bin/pm2 reload pm2.config.cjs'
     }
   }
 }
