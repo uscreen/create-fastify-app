@@ -68,6 +68,13 @@ $ make logs
 
 ## Changelog
 
+### 1.0.0
+
+#### Changed
+
+- switch skeleton to __ESM only__
+- upgrade skeleton to fastify@4.x
+
 ### v0.7.0
 
 - added: graceful shutdown in skeleton
