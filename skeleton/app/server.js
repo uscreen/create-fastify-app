@@ -47,4 +47,4 @@ process.on('SIGINT', async () => {
 /**
  * start http server
  */
-server.listen(config.httpPort, config.httpBind)
+server.listen({ port: config.httpPort, host: config.httpBind })
