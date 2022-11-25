@@ -98,6 +98,7 @@ const addPackageConfig = (path, skelPath) => {
   delete pack.packageJson.readme
 
   pack.packageJson.main = skelPack.packageJson.main
+  pack.packageJson.type = 'module'
 
   pack.packageJson.scripts = Object.assign(pack.packageJson.scripts || {}, {
     start: 'pm2 start pm2-dev.config.cjs',
