@@ -100,15 +100,15 @@ const addPackageConfig = (path, skelPath) => {
   pack.packageJson.main = skelPack.packageJson.main
 
   pack.packageJson.scripts = Object.assign(pack.packageJson.scripts || {}, {
-    start: 'pm2 start pm2-dev.config.js',
-    stop: 'pm2 delete pm2-dev.config.js',
+    start: 'pm2 start pm2-dev.config.cjs',
+    stop: 'pm2 delete pm2-dev.config.cjs',
     logs: `pm2 logs ${pack.packageJson.name} --raw | pino-pretty -t`,
     lint: "eslint '**/*.js' --fix",
     test: 'tap test/**/*.test.js',
     'test:cov': 'tap --coverage-report=html test/**/*.test.js',
     'test:ci': 'tap --coverage-report=text-summary test/**/*.test.js',
-    deploy: 'pm2 deploy pm2.config.js',
-    postdeploy: 'pm2 reload pm2.config.js'
+    deploy: 'pm2 deploy pm2.config.cjs',
+    postdeploy: 'pm2 reload pm2.config.cjs'
   })
   pack.packageJson.gitHooks = {
     'pre-commit': 'lint-staged'

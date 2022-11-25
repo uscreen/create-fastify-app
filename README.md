@@ -37,8 +37,8 @@ new-app
 │   └── services
 │       └── noop.js
 ├── package.json
-├── pm2-dev.config.js
-├── pm2.config.js
+├── pm2-dev.config.cjs
+├── pm2.config.cjs
 ├── test
 │   ├── helper.js
 │   └── noop.test.js
