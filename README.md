@@ -68,6 +68,23 @@ $ make logs
 
 ## Changelog
 
+### 1.1.0
+
+#### Changed
+
+- migrated yorkie to husky
+- cleanup app.js and server.js
+
+#### Added
+
+- uses @uscreen.de/common-esm for esm migration
+- uses @uscreen.de/fastify-app options for app creation
+- uses nodemon for dev mode
+
+#### Removed
+
+- dropped pm2 package and config
+
 ### 1.0.0
 
 #### Changed
