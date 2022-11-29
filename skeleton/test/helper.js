@@ -8,13 +8,9 @@ import fp from 'fastify-plugin'
 import App from '../app/app.js'
 import Config from '../app/config.js'
 
-// overwrite some config option(s) on tests
-Config.hemeralogLevel = 'fatal'
-Config.hemeraNS = `test-${process.env.TAP_CHILD_ID}`
-
 // automatically build and tear down our instance
-export const build = async (t, featureSwitches = {}, ConfigOverwrite = {}) => {
-  return new Promise((resolve, reject) => {
+export const build = async (t, ConfigOverwrite = {}) => {
+  return new Promise((resolve) => {
     const app = Fastify()
 
     // setup to register YOUR app

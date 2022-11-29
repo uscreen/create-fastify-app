@@ -6,11 +6,7 @@
 ## Usage
 
 * `make start`: start app on local dev
-* `make logs`: watch logs
-* `make stop`: stop app
 * `make test`: test app
-* `make deploy`: deploy app to stage
-* `make live.deploy`: deploy app to live
 
 ## Configure
 

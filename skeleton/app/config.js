@@ -1,8 +1,7 @@
-import path from 'path'
 import envSchema from 'env-schema'
-import { dirname } from './modules/common-esm.js'
+import CommonESM from '@uscreen.de/common-esm'
 
-const __dirname = dirname(import.meta.url)
+const { join } = new CommonESM(import.meta.url)
 
 const schema = {
   type: 'object',
@@ -20,10 +19,7 @@ const config = envSchema({
   dotenv: true
 })
 
-config.autoloads = [
-  path.join(__dirname, 'plugins'),
-  path.join(__dirname, 'services')
-]
+config.autoloads = [join('plugins'), join('services')]
 
 config.swagger = {
   routePrefix: `${config.prefix}/docs`,

@@ -1,29 +1,9 @@
 import fastify from 'fastify'
-import hyperid from 'hyperid'
+import { options } from '@uscreen.de/fastify-app'
 import config from './config.js'
 import app from './app.js'
-import { json } from './modules/common-esm.js'
 
-const { name, version } = json(import.meta.url, '../package.json')
-
-const instance = hyperid({ urlSafe: true })
-
-const server = fastify({
-  genReqId() {
-    return instance()
-  },
-
-  logger: config.logEnabled
-    ? {
-        level: config.logLevel,
-        name: `${name} (v${version}) ${process.env.NODE_APP_INSTANCE}`,
-        redact: {
-          paths: ['pattern'], // limit hemeras verbosity
-          remove: true
-        }
-      }
-    : false
-})
+const server = fastify(options(config))
 
 server.register(app, config)
 
@@ -32,17 +12,24 @@ server.register(app, config)
  */
 server.ready((err) => {
   if (err) throw err
-  server.log.debug('server ready, routes are set:\n' + server.printRoutes())
+  server.log.debug(
+    'server ready, routes are set:\n' +
+      server.printRoutes({ commonPrefix: false })
+  )
 })
 
 /**
  * graceful shutdown (closing handles, etc.)
  */
-process.on('SIGINT', async () => {
-  server.log.info(`server shutting down.`)
+const shutdown = async () => {
+  server.log.info(
+    `application shutting down. (${server.app.name} ${server.app.version})`
+  )
   await server.close()
   process.exit()
-})
+}
+process.on('SIGINT', shutdown)
+process.on('SIGTERM', shutdown)
 
 /**
  * start http server
