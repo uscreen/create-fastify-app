@@ -48,38 +48,11 @@ const initializeYarn = (path, { yes } = {}) =>
   })
 
 /**
- * install extra dev packages from skeleleton
+ * install packages
  */
-const installDevPackages = (appPath, skelPath) => {
-  const skelPack = readPackageUpSync({ cwd: skelPath })
-  const devDependencies = Object.entries(
-    skelPack.packageJson.devDependencies
-  ).map(([key, val]) => `${key}@${val}`)
-
+const installPackages = (appPath) => {
   return new Promise((resolve, reject) => {
-    const yarn = spawn('yarn', ['add', ...devDependencies, '-D'], {
-      cwd: appPath
-    })
-    yarn.stdout.on('data', (data) => process.stdout.write(data))
-    yarn.stderr.on('data', (data) => process.stderr.write(data))
-    yarn.on('close', (code) => {
-      if (code === 0) return resolve(code)
-      reject(code)
-    })
-  })
-}
-
-/**
- * install extra prod packages from skeleleton
- */
-const installPackages = (appPath, skelPath) => {
-  const skelPack = readPackageUpSync({ cwd: skelPath })
-  const dependencies = Object.entries(skelPack.packageJson.dependencies).map(
-    ([key, val]) => `${key}@${val}`
-  )
-
-  return new Promise((resolve, reject) => {
-    const yarn = spawn('yarn', ['add', ...dependencies], {
+    const yarn = spawn('yarn', ['install'], {
       cwd: appPath
     })
     yarn.stdout.on('data', (data) => process.stdout.write(data))
@@ -104,6 +77,9 @@ const addPackageConfig = (path, skelPath) => {
   pack.packageJson.type = skelPack.packageJson.type
   pack.packageJson.scripts = skelPack.packageJson.scripts
   pack.packageJson['lint-staged'] = skelPack.packageJson['lint-staged']
+
+  pack.packageJson.dependencies = skelPack.packageJson.dependencies
+  pack.packageJson.devDependencies = skelPack.packageJson.devDependencies
 
   return writePackage(pack.path, pack.packageJson)
 }
@@ -156,9 +132,8 @@ program
      */
     await initializeGitRepository(root)
     await initializeYarn(root, opt)
-    await installDevPackages(root, skeleton)
-    await installPackages(root, skeleton)
     await addPackageConfig(root, skeleton)
+    await installPackages(root)
     await copySkeleton(root, skeleton)
     await copyEnv(root, skeleton)
   })
