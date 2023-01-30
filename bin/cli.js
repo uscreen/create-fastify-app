@@ -32,9 +32,12 @@ const initializeGitRepository = (path) =>
 /**
  * init new yarn project
  */
-const initializeYarn = (path) =>
+const initializeYarn = (path, { yes } = {}) =>
   new Promise((resolve, reject) => {
-    const yarn = spawn('yarn', ['init'], {
+    const params = ['init']
+    if (yes) params.push('-y')
+
+    const yarn = spawn('yarn', params, {
       cwd: path,
       stdio: [0, 1, 2]
     })
@@ -130,7 +133,8 @@ const copyEnv = (appPath, skelPath) => {
  */
 program
   .version('0.1.0')
-  .arguments('<name> [opt]')
+  .arguments('<name>')
+  .option('-y --yes')
   .action(async (name, opt) => {
     if (typeof name === 'undefined') {
       console.error('please specify your new apps name...')
@@ -151,7 +155,7 @@ program
      * setup new app
      */
     await initializeGitRepository(root)
-    await initializeYarn(root)
+    await initializeYarn(root, opt)
     await installDevPackages(root, skeleton)
     await installPackages(root, skeleton)
     await addPackageConfig(root, skeleton)
