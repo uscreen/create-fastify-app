@@ -116,11 +116,6 @@ program
   .arguments('<name>')
   .option('-y --yes')
   .action(async (name, opt) => {
-    if (typeof name === 'undefined') {
-      console.error('please specify your new apps name...')
-      process.exit(1)
-    }
-
     /**
      * the root directory of new project
      */
@@ -146,10 +141,3 @@ program
  * read args
  */
 program.parse(process.argv)
-
-/**
- * output help as default
- */
-if (!process.argv.slice(2).length) {
-  program.help()
-}
