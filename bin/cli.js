@@ -29,6 +29,7 @@ const initializeGitRepository = (path) =>
     git.stderr.on('data', (data) => process.stderr.write(data))
     git.on('close', (code) => {
       if (code === 0) return resolve(code)
+      /* c8 ignore next */
       reject(code)
     })
   })
@@ -47,6 +48,7 @@ const initializeYarn = (path, { yes } = {}) =>
     })
     yarn.on('close', (code) => {
       if (code === 0) return resolve(code)
+      /* c8 ignore next */
       reject(code)
     })
   })
@@ -63,6 +65,7 @@ const installPackages = (appPath) => {
     yarn.stderr.on('data', (data) => process.stderr.write(data))
     yarn.on('close', (code) => {
       if (code === 0) return resolve(code)
+      /* c8 ignore next */
       reject(code)
     })
   })
