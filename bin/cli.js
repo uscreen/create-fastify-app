@@ -2,6 +2,8 @@
 
 import path from 'path'
 import { fileURLToPath } from 'url'
+import { createRequire } from 'module'
+
 import { program } from 'commander'
 import { readPackageUpSync } from 'read-pkg-up'
 import { writePackage } from 'write-pkg'
@@ -11,6 +13,8 @@ import { spawn } from 'child_process'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+const require = createRequire(import.meta.url)
+const { version } = require('../package.json')
 
 let root
 let skeleton
@@ -108,7 +112,7 @@ const copyEnv = (appPath, skelPath) => {
  * define the command
  */
 program
-  .version('0.1.0')
+  .version(version)
   .arguments('<name>')
   .option('-y --yes')
   .action(async (name, opt) => {
