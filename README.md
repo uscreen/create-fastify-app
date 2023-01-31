@@ -1,5 +1,10 @@
 # create-fastify-app
 
+[![Test CI](https://github.com/uscreen/create-fastify-app/actions/workflows/main.yml/badge.svg)](https://github.com/uscreen/create-fastify-app/actions/workflows/main.yml)
+[![Test Coverage](https://coveralls.io/repos/github/uscreen/create-fastify-app/badge.svg?branch=master)](https://coveralls.io/github/uscreen/create-fastify-app?branch=master)
+[![Known Vulnerabilities](https://snyk.io/test/github/uscreen/create-fastify-app/badge.svg?targetFile=package.json)](https://snyk.io/test/github/uscreen/create-fastify-app?targetFile=package.json)
+[![NPM Version](https://badge.fury.io/js/@uscreen.de%2Fcreate-fastify-app.svg)](https://badge.fury.io/js/@uscreen.de%2Fcreate-fastify-app)
+
 > cli to quickly bootstrap a new fastify-app
 
 This package provides the cli skript to create a new `@uscreen.de/fastify-app` from scratch. No need to install any other prerequisites than node and yarn. Features include:
