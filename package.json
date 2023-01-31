@@ -4,7 +4,11 @@
   "description": "cli to create a new @uscreen.de/fastify-app",
   "main": "index.js",
   "type": "module",
-  "repository": "git@gitlab.uscreen.net:uscreen/npm/create-fastify-app.git",
+  "homepage": "https://github.com/uscreen/create-fastify-app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uscreen/create-fastify-app.git"
+  },
   "author": "Marcus Spiegel <spiegel@uscreen.de>",
   "license": "MIT",
   "bin": {
