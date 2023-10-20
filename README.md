@@ -73,6 +73,18 @@ $ make logs
 
 ## Changelog
 
+### 1.1.2
+
+#### Changed
+
+- upgraded to node 20.x (LTS)
+
+### 1.1.1
+
+#### Changed
+
+- upgraded to node 18.x (LTS)
+
 ### 1.1.0
 
 #### Changed
