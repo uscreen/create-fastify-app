@@ -40,12 +40,7 @@ test('`$ cli new-app` should succeed', async (t) => {
         'new-app',
         '.git'
       )}`,
-      'success Saved package.json',
-      '[1/4] Resolving packages...',
-      '[2/4] Fetching packages...',
-      '[3/4] Linking dependencies...',
-      '[4/4] Building fresh packages...',
-      'success Saved lockfile.'
+      'success Saved package.json'
     ]
 
     const stdout = stripAnsi(result.stdout)
@@ -70,10 +65,6 @@ test('`$ cli new-app` should succeed', async (t) => {
     assert.ok(
       fs.existsSync(path.resolve(appPath, 'README.md')),
       'skeleton was copied'
-    )
-    assert.ok(
-      fs.existsSync(path.resolve(appPath, 'yarn.lock')),
-      'Packages were installed'
     )
     assert.ok(fs.existsSync(path.resolve(appPath, '.env')), 'Env was copied')
 

@@ -53,24 +53,6 @@ const initializeYarn = (path) =>
   })
 
 /**
- * install packages
- */
-const installPackages = (appPath) => {
-  return new Promise((resolve, reject) => {
-    const yarn = spawn('yarn', ['install'], {
-      cwd: appPath
-    })
-    yarn.stdout.on('data', (data) => process.stdout.write(data))
-    yarn.stderr.on('data', (data) => process.stderr.write(data))
-    yarn.on('close', (code) => {
-      if (code === 0) return resolve(code)
-      /* c8 ignore next */
-      reject(code)
-    })
-  })
-}
-
-/**
  * configure package.json to use linting, testing, stuff
  */
 const addPackageConfig = (path, skelPath) => {
@@ -82,7 +64,6 @@ const addPackageConfig = (path, skelPath) => {
   pack.packageJson.main = skelPack.packageJson.main
   pack.packageJson.type = skelPack.packageJson.type
   pack.packageJson.scripts = skelPack.packageJson.scripts
-  pack.packageJson['lint-staged'] = skelPack.packageJson['lint-staged']
 
   pack.packageJson.dependencies = skelPack.packageJson.dependencies
   pack.packageJson.devDependencies = skelPack.packageJson.devDependencies
@@ -133,7 +114,6 @@ program
     await initializeGitRepository(root)
     await initializeYarn(root)
     await addPackageConfig(root, skeleton)
-    await installPackages(root)
     await copySkeleton(root, skeleton)
     await copyEnv(root, skeleton)
   })
