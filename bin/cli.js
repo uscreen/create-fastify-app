@@ -37,10 +37,9 @@ const initializeGitRepository = (path) =>
 /**
  * init new yarn project
  */
-const initializeYarn = (path, { yes } = {}) =>
+const initializeYarn = (path) =>
   new Promise((resolve, reject) => {
-    const params = ['init']
-    if (yes) params.push('-y')
+    const params = ['init', '-y']
 
     const yarn = spawn('yarn', params, {
       cwd: path,
@@ -117,8 +116,7 @@ const copyEnv = (appPath, skelPath) => {
 program
   .version(version)
   .arguments('<name>')
-  .option('-y --yes')
-  .action(async (name, opt) => {
+  .action(async (name) => {
     /**
      * the root directory of new project
      */
@@ -133,7 +131,7 @@ program
      * setup new app
      */
     await initializeGitRepository(root)
-    await initializeYarn(root, opt)
+    await initializeYarn(root)
     await addPackageConfig(root, skeleton)
     await installPackages(root)
     await copySkeleton(root, skeleton)

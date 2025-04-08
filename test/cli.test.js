@@ -26,8 +26,8 @@ test('`$ cli -V` should show correct version', async (t) => {
   assert.equal(true, result.stdout.startsWith(version))
 })
 
-test('`$ cli new-app -y` should succeed', async (t) => {
-  const result = await cli(['new-app', '-y'])
+test('`$ cli new-app` should succeed', async (t) => {
+  const result = await cli(['new-app'])
   /**
    * check output
    */
