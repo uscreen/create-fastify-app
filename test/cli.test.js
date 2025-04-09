@@ -34,14 +34,7 @@ test('`$ cli new-app` should succeed', async (t) => {
   assert.equal(0, result.code, 'Should succeed')
 
   await t.test('Check output', (t, done) => {
-    const expectedOut = [
-      `Initialized empty Git repository in ${path.resolve(
-        cwd,
-        'new-app',
-        '.git'
-      )}`,
-      'success Saved package.json'
-    ]
+    const expectedOut = ['success Saved package.json']
 
     const stdout = stripAnsi(result.stdout)
 

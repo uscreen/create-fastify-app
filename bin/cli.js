@@ -20,19 +20,9 @@ let root
 let skeleton
 
 /**
- * init new git
+ * ensure path of new app
  */
-const initializeGitRepository = (path) =>
-  new Promise((resolve, reject) => {
-    const git = spawn('git', ['init', path])
-    git.stdout.on('data', (data) => process.stdout.write(data))
-    git.stderr.on('data', (data) => process.stderr.write(data))
-    git.on('close', (code) => {
-      if (code === 0) return resolve(code)
-      /* c8 ignore next */
-      reject(code)
-    })
-  })
+const ensurePath = (path) => fs.ensureDir(path)
 
 /**
  * init new yarn project
@@ -111,7 +101,7 @@ program
     /**
      * setup new app
      */
-    await initializeGitRepository(root)
+    await ensurePath(root)
     await initializeYarn(root)
     await addPackageConfig(root, skeleton)
     await copySkeleton(root, skeleton)
