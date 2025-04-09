@@ -15,11 +15,10 @@
     "create-fastify-app": "./bin/cli.js"
   },
   "scripts": {
-    "test": "c8 tap",
-    "test:cov": "c8 --reporter=html --reporter=text tap",
-    "test:ci": "c8 --reporter=lcovonly tap",
     "lint": "eslint --fix",
-    "prepare": "husky install"
+    "test": "node --test --test-reporter spec",
+    "test:cov": "c8 --reporter=html --reporter=text node --test",
+    "test:ci": "node --test"
   },
   "dependencies": {
     "commander": "^11.0.0",
@@ -28,14 +27,8 @@
     "write-pkg": "^7.0.0"
   },
   "devDependencies": {
-    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.10",
-    "c8": "^9.0.0",
-    "husky": ">=8.0.2",
-    "lint-staged": ">=13.0.3",
-    "strip-ansi": "^7.0.1",
-    "tap": "^16.3.4"
-  },
-  "lint-staged": {
-    "*.js": "eslint --cache --fix"
+    "@uscreen.de/eslint-config-prettystandard-node": "^0.2.12",
+    "c8": "^10.1.2",
+    "strip-ansi": "^7.0.1"
   }
 }

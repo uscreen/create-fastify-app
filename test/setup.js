@@ -28,6 +28,6 @@ export const before = () => {
   fs.ensureDirSync(cwd)
 }
 
-export const teardown = () => {
+export const after = () => {
   fs.removeSync(cwd)
 }

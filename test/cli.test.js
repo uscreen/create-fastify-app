@@ -1,17 +1,18 @@
-import tap from 'tap'
+import test from 'node:test'
+import assert from 'node:assert/strict'
 import fs from 'fs-extra'
 import path from 'path'
 import { createRequire } from 'module'
 import stripAnsi from 'strip-ansi'
-import { before, teardown, cli, cwd } from './setup.js'
+import { before, after, cli, cwd } from './setup.js'
 
 const require = createRequire(import.meta.url)
 const { version } = require('../package.json')
 
-tap.before(before)
-tap.teardown(teardown)
+test.before(before)
+test.after(after)
 
-tap.test('$ cli', async (t) => {
+test('$ cli', async (t) => {
   const result = await cli([])
   t.equal(
     true,
@@ -22,7 +23,7 @@ tap.test('$ cli', async (t) => {
   t.end()
 })
 
-tap.test('$ cli -V', async (t) => {
+test('$ cli -V', async (t) => {
   const result = await cli(['--version'])
   t.equal(
     true,
@@ -33,7 +34,7 @@ tap.test('$ cli -V', async (t) => {
   t.end()
 })
 
-tap.test('$ cli new-app -y', async (t) => {
+test('$ cli new-app -y', async (t) => {
   const result = await cli(['new-app', '-y'])
 
   /**
