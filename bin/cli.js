@@ -25,17 +25,15 @@ let skeleton
 const ensurePath = (path) => fs.ensureDir(path)
 
 /**
- * init new yarn project
+ * init new pnpm project
  */
-const initializeYarn = (path) =>
+const initializePnpm = (path) =>
   new Promise((resolve, reject) => {
-    const params = ['init', '-y']
-
-    const yarn = spawn('yarn', params, {
+    const pnpm = spawn('pnpm', ['init'], {
       cwd: path,
       stdio: [0, 1, 2]
     })
-    yarn.on('close', (code) => {
+    pnpm.on('close', (code) => {
       if (code === 0) return resolve(code)
       /* c8 ignore next */
       reject(code)
@@ -102,7 +100,7 @@ program
      * setup new app
      */
     await ensurePath(root)
-    await initializeYarn(root)
+    await initializePnpm(root)
     await addPackageConfig(root, skeleton)
     await copySkeleton(root, skeleton)
     await copyEnv(root, skeleton)

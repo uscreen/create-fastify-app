@@ -29,7 +29,7 @@ After starting your server you will find swagger documenation at [http://127.0.0
 
 ### v0.0.0
 
-- initially bootstrapped by `yarn create @uscreen.de/fastify-app`
+- initially bootstrapped by `pnpm create @uscreen.de/fastify-app`
 
 ---
 

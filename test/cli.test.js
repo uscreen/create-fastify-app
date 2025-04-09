@@ -34,7 +34,9 @@ test('`$ cli new-app` should succeed', async (t) => {
   assert.equal(0, result.code, 'Should succeed')
 
   await t.test('Check output', (t, done) => {
-    const expectedOut = ['success Saved package.json']
+    const appPath = path.resolve(cwd, 'new-app')
+
+    const expectedOut = [`Wrote to ${appPath}/package.json`]
 
     const stdout = stripAnsi(result.stdout)
 
