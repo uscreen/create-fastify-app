@@ -7,30 +7,29 @@
 
 > cli to quickly bootstrap a new fastify-app
 
-This package provides the cli skript to create a new `@uscreen.de/fastify-app` from scratch. No need to install any other prerequisites than node and yarn. Features include:
+This package provides the cli skript to create a new `@uscreen.de/fastify-app` from scratch inside of a monorepo. No need to install any other prerequisites than node and pnpm. Features include:
 
-* initialize new __git__ repository
-* initialize new __yarn__ package.json
-* install all __dependencies__ and __devDependencies__
-* add __skripts__ and __hooks__ to package.json
+* initialize new package.json
 * setup __application skeleton__
-* setup __dotfiles__ and __linting__
+* setup __dotfiles__
 * setup __.env__ for starting
 
 ## Usage
 
-Use `yarn create` to create a new fastify-app, like so:
+Use `pnpm create` to create a new fastify-app, like so:
 
 ```bash
-$ yarn create @uscreen.de/fastify-app new-app
+$ pnpm create @uscreen.de/fastify-app new-app
 ```
 
-and follow instructions. It will create a directory called `new-app` inside the current folder.
-Inside that directory, it will generate the initial project structure and install any dependencies:
+It will create a directory called `new-app` inside the current folder.
+Inside that directory, it will generate the initial project structure:
 
 ```bash
 new-app
-├── Makefile
+├── .env
+├── .env.example
+├── .gitignore
 ├── README.md
 ├── app
 │   ├── app.js
@@ -42,15 +41,13 @@ new-app
 │   └── services
 │       └── noop.js
 ├── package.json
-├── pm2-dev.config.cjs
-├── pm2.config.cjs
-├── test
-│   ├── helper.js
-│   └── noop.test.js
-└── yarn.lock
+└── test
+    ├── app
+    │   └── noop.test.js
+    └── helper.js
 ```
 
-`yarn create` will update itself and checkout the latest version of the boilerplate packed with lot's of best-practice settings and prepared for local dev and pm2 deployment.
+`pnpm create` will update itself and checkout the latest version of the boilerplate packed with lot's of best-practice settings and prepared for local dev.
 
 More Details can be found in `@uscreen.de/fastify-app` [README](https://www.npmjs.com/package/@uscreen.de/fastify-app)
 
@@ -58,8 +55,8 @@ After creation has finished cd into the new apps directory and check it's README
 
 ```bash
 $ cd ./new-app
-$ make start
-$ make logs
+$ pnpm install
+$ pnpm dev
 ```
 
 ---
@@ -72,6 +69,18 @@ $ make logs
 - > ...TBD
 
 ## Changelog
+
+### 2.0.0
+
+#### Changed
+
+- changed skeleton & creation process so it's suitable for use in a monorepo
+- upgraded skeleton to fastify@5
+- use pnpm instead of yarn
+
+#### Removed
+
+- `-y` option (it is default now)
 
 ### 1.1.2
 
