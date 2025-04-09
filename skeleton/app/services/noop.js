@@ -9,7 +9,7 @@ export default (fastify, opts, next) => {
         }
       }
     },
-    async (req, res) => {
+    async (/* req, res */) => {
       return {
         noop: 'Hello world',
         plugin: fastify.noop(),

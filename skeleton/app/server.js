@@ -1,7 +1,9 @@
-import fastify from 'fastify'
+import process from 'node:process'
 import { options } from '@uscreen.de/fastify-app'
-import config from './config.js'
+import fastify from 'fastify'
 import app from './app.js'
+
+import config from './config.js'
 
 const server = fastify(options(config))
 
@@ -11,10 +13,12 @@ server.register(app, config)
  * post-treatment
  */
 server.ready((err) => {
-  if (err) throw err
+  if (err) {
+    throw err
+  }
   server.log.debug(
-    'server ready, routes are set:\n' +
-      server.printRoutes({ commonPrefix: false })
+    `server ready, routes are set:\n${
+      server.printRoutes({ commonPrefix: false })}`
   )
 })
 

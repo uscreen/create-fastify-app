@@ -1,11 +1,17 @@
 {
   "name": "new-fastify-app",
+  "type": "module",
   "version": "0.0.0",
   "main": "app/server.js",
-  "type": "module",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "node --test --test-reporter spec",
+    "test:cov": "c8 --reporter=html --reporter=text node --test",
+    "test:ci": "node --test"
+  },
   "dependencies": {
-    "@uscreen.de/common-esm": "^1.0.0",
     "@fastify/one-line-logger": "^2.0.0",
+    "@uscreen.de/common-esm": "^1.0.0",
     "@uscreen.de/fastify-app": "^3.0.0",
     "env-schema": "^6.0.0",
     "fastify": "^5.0.0",
@@ -18,11 +24,5 @@
     "eslint": "^9.0.0",
     "eslint-plugin-format": "^1.0.1",
     "nodemon": "^3.0.0"
-  },
-  "scripts": {
-    "dev": "nodemon",
-    "test": "node --test --test-reporter spec",
-    "test:cov": "c8 --reporter=html --reporter=text node --test",
-    "test:ci": "node --test"
   }
 }

@@ -1,19 +1,19 @@
 # ${app-name}
 
-> __TODO:__
+> **TODO:**
 > add a name & short description of this apps purpose
 
 ## Usage
 
-* `make start`: start app on local dev
-* `make test`: test app
+- `make start`: start app on local dev
+- `make test`: test app
 
 ## Configure
 
-Configuration is read by dotenv from `app/.env` file and validated _[optional modified]_ by `app/config.js`. Please add extra defaults if needed to `config.js`. Default values should __always__ refer to local dev setups.
+Configuration is read by dotenv from `app/.env` file and validated _[optional modified]_ by `app/config.js`. Please add extra defaults if needed to `config.js`. Default values should **always** refer to local dev setups.
 
-> __Note:__
-> the `.env` file should __never__ get pushed to repository. So adding secrets and credentials to `.env` can be considered a secure option bound to specific environments.
+> **Note:**
+> the `.env` file should **never** get pushed to repository. So adding secrets and credentials to `.env` can be considered a secure option bound to specific environments.
 
 ## Api
 

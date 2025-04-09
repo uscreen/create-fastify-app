@@ -22,10 +22,12 @@ export const build = async (t, ConfigOverwrite = {}) => {
     })
 
     app.ready((err) => {
-      if (err) throw err
+      if (err) {
+        throw err
+      }
       resolve(app)
     })
   })
 }
 
-export const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms))
+export const wait = ms => new Promise(resolve => setTimeout(resolve, ms))

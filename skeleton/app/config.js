@@ -1,5 +1,5 @@
-import envSchema from 'env-schema'
 import CommonESM from '@uscreen.de/common-esm'
+import envSchema from 'env-schema'
 
 const { join } = new CommonESM(import.meta.url)
 
@@ -15,7 +15,7 @@ const schema = {
 }
 
 const config = envSchema({
-  schema: schema,
+  schema,
   dotenv: true
 })
 
