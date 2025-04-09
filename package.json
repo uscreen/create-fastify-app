@@ -18,7 +18,7 @@
     "lint": "eslint --fix",
     "test": "node --test --test-reporter spec ./test",
     "test:cov": "c8 --reporter=html --reporter=text node --test ./test",
-    "test:ci": "node --test ./test"
+    "test:ci": "find ./test -name '*.test.js' | xargs c8 --reporter=lcov --reporter=text -- node --test"
   },
   "dependencies": {
     "commander": "^11.0.0",
