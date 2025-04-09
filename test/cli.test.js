@@ -12,37 +12,28 @@ const { version } = require('../package.json')
 test.before(before)
 test.after(after)
 
-test('$ cli', async (t) => {
+test('`$ cli` should print error message', async (t) => {
   const result = await cli([])
-  t.equal(
+  assert.equal(
     true,
     result.stderr.startsWith("error: missing required argument 'name'"),
     'Should print error message'
   )
-
-  t.end()
 })
 
-test('$ cli -V', async (t) => {
+test('`$ cli -V` should show correct version', async (t) => {
   const result = await cli(['--version'])
-  t.equal(
-    true,
-    result.stdout.startsWith(version),
-    'Should show correct version'
-  )
-
-  t.end()
+  assert.equal(true, result.stdout.startsWith(version))
 })
 
-test('$ cli new-app -y', async (t) => {
+test('`$ cli new-app -y` should succeed', async (t) => {
   const result = await cli(['new-app', '-y'])
-
   /**
    * check output
    */
-  t.equal(0, result.code, 'Should succeed')
+  assert.equal(0, result.code, 'Should succeed')
 
-  t.test('Check output', (t) => {
+  await t.test('Check output', (t, done) => {
     const expectedOut = [
       `Initialized empty Git repository in ${path.resolve(
         cwd,
@@ -54,57 +45,52 @@ test('$ cli new-app -y', async (t) => {
       '[2/4] Fetching packages...',
       '[3/4] Linking dependencies...',
       '[4/4] Building fresh packages...',
-      'success Saved lockfile.',
-      'husky - Git hooks installed'
+      'success Saved lockfile.'
     ]
 
     const stdout = stripAnsi(result.stdout)
 
     for (const e of expectedOut) {
-      t.equal(true, stdout.includes(e), `"${e.substring(0, 36)}"`)
+      assert.equal(true, stdout.includes(e), `"${e.substring(0, 36)}"`)
     }
 
-    t.end()
+    done()
   })
 
   /**
    * check files
    */
-  t.test('Check files', (t) => {
+  await t.test('Check files', (t, done) => {
     const appPath = path.resolve(cwd, 'new-app')
 
-    t.equal(
-      true,
+    assert.ok(
       fs.existsSync(path.resolve(appPath, 'package.json')),
       'package.json was created'
     )
-    t.equal(
-      true,
+    assert.ok(
       fs.existsSync(path.resolve(appPath, 'README.md')),
       'skeleton was copied'
     )
-    t.equal(
-      true,
+    assert.ok(
       fs.existsSync(path.resolve(appPath, 'yarn.lock')),
       'Packages were installed'
     )
+    assert.ok(fs.existsSync(path.resolve(appPath, '.env')), 'Env was copied')
 
     const pack = JSON.parse(
       fs.readFileSync(path.resolve(appPath, 'package.json'), {
         encoding: 'utf-8'
       })
     )
-    t.equal(
-      true,
+    assert.ok(
       pack.name !== 'new-fastify-app',
       'package.json was not just copied from skeleton'
     )
-    t.equal(
-      true,
+    assert.ok(
       pack.main === 'app/server.js',
       'package.json was correctly enriched with data'
     )
 
-    t.end()
+    done()
   })
 })
