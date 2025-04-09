@@ -1,45 +1,50 @@
-import tap from 'tap'
+import test from 'node:test'
+import assert from 'node:assert/strict'
 import { build } from '../helper.js'
 
-tap.test('Test Setup', (t) => {
-  t.equal(true, true, 'Tests and assertions should work')
-  t.end()
+test('Test Setup', (t, done) => {
+  assert.equal(true, true, 'Tests and assertions should work')
+  done()
 })
 
-tap.test('Healthcheck', async (t) => {
-  const fastify = await build(t)
-  const { prefix } = fastify.config
+test('Healthcheck', async (t) => {
+  const app = await build(t)
+  const { prefix } = app.config
 
-  t.test('a valid GET Request', (t) => {
-    fastify.inject(
+  t.test('a valid GET Request', (t, done) => {
+    app.inject(
       {
         method: 'GET',
         url: `${prefix}/health`
       },
       (e, response) => {
-        t.error(e)
-        t.same(response.statusCode, 200, 'response ok')
-        t.same(JSON.parse(response.body), { status: 'ok' }, 'payload ok')
-        t.end()
+        assert.ok(!e)
+        assert.equal(response.statusCode, 200, 'response ok')
+        assert.deepEqual(
+          JSON.parse(response.body),
+          { status: 'ok' },
+          'payload ok'
+        )
+        done()
       }
     )
   })
 })
 
-tap.test('Noop Service', async (t) => {
-  const fastify = await build(t)
-  const { prefix } = fastify.config
+test('Noop Service', async (t) => {
+  const app = await build(t)
+  const { prefix } = app.config
 
-  t.test('a valid GET Request', (t) => {
-    fastify.inject(
+  t.test('a valid GET Request', (t, done) => {
+    app.inject(
       {
         method: 'GET',
         url: `${prefix}/noop`
       },
       (e, response) => {
-        t.error(e)
-        t.same(response.statusCode, 200, 'response ok')
-        t.same(
+        assert.ok(!e)
+        assert.equal(response.statusCode, 200, 'response ok')
+        assert.deepEqual(
           JSON.parse(response.body),
           {
             noop: 'Hello world',
@@ -47,7 +52,7 @@ tap.test('Noop Service', async (t) => {
           },
           'payload ok'
         )
-        t.end()
+        done()
       }
     )
   })

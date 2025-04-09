@@ -17,7 +17,9 @@ export const build = async (t, ConfigOverwrite = {}) => {
     app.register(fp(App), { ...Config, ...ConfigOverwrite })
 
     // tear down our app after we are done
-    t.teardown(app.close.bind(app))
+    t.after(async () => {
+      await app.close()
+    })
 
     app.ready((err) => {
       if (err) throw err
