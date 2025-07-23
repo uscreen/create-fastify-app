@@ -5,8 +5,8 @@
 
 ## Usage
 
-- `make start`: start app on local dev
-- `make test`: test app
+- `pnpm run dev`: start app on local dev
+- `pnpm run test`: test app
 
 ## Configure
 
