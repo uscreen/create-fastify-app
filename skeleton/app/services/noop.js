@@ -1,18 +1,18 @@
-export default (fastify, opts, next) => {
-  fastify.get(
+export default (app, opts, next) => {
+  app.get(
     '/noop',
     {
       schema: {
         response: {
-          200: { $ref: 'noopNplugin#' } // fastest and json-schema spec compatiple way, or use 'fastify.getSchema()'
-          // 200: fastify.getSchema('noopNplugin')
+          200: { $ref: 'noopNplugin#' } // fastest and json-schema spec compatiple way, or use 'app.getSchema()'
+          // 200: app.getSchema('noopNplugin')
         }
       }
     },
     async (/* req, res */) => {
       return {
         noop: 'Hello world',
-        plugin: fastify.noop(),
+        plugin: app.noop(),
         property: 'should be stripped from response'
       }
     }

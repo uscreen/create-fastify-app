@@ -1,8 +1,8 @@
 import fp from 'fastify-plugin'
 
 export default fp(
-  (fastify, opts, next) => {
-    fastify.decorate('noop', () => {
+  (app, opts, next) => {
+    app.decorate('noop', () => {
       return 'Hello Universe'
     })
 

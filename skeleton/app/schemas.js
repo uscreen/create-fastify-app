@@ -5,9 +5,9 @@ import S from 'fluent-json-schema'
  * Usage of the Globaly Shared Schema feature
  */
 
-export default fp((fastify, opts, next) => {
+export default fp((app, opts, next) => {
   const addSchema = (schema) => {
-    fastify.addSchema(schema)
+    app.addSchema(schema)
     return schema
   }
 

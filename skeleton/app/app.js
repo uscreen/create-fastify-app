@@ -2,16 +2,16 @@ import fastifyApp from '@uscreen.de/fastify-app'
 import fp from 'fastify-plugin'
 import schemas from './schemas.js'
 
-export default fp((fastify, opts, next) => {
+export default fp((app, opts, next) => {
   /**
    * add schemas
    */
-  fastify.register(schemas)
+  app.register(schemas)
 
   /**
    * register app
    */
-  fastify.register(fastifyApp, opts)
+  app.register(fastifyApp, opts)
 
   next()
 })
