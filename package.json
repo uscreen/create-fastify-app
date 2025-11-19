@@ -21,7 +21,7 @@
     "test:ci": "find ./test -name '*.test.js' | xargs c8 --reporter=lcov --reporter=text -- node --test"
   },
   "dependencies": {
-    "commander": "^14.0.1",
+    "commander": "^14.0.2",
     "fs-extra": "^11.3.2",
     "read-pkg-up": "^11.0.0",
     "write-pkg": "^7.0.0"
