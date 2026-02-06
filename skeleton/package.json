@@ -13,10 +13,10 @@
     "@fastify/one-line-logger": "^2.0.0",
     "@uscreen.de/common-esm": "^1.0.0",
     "@uscreen.de/fastify-app": "^3.0.0",
-    "env-schema": "^6.0.0",
+    "env-schema": "^7.0.0",
     "fastify": "^5.0.0",
     "fastify-plugin": "^5.0.0",
-    "fluent-json-schema": "^5.0.0"
+    "fluent-json-schema": "^6.0.0"
   },
   "devDependencies": {
     "c8": "^10.0.0",
