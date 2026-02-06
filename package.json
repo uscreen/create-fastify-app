@@ -21,10 +21,10 @@
     "test:ci": "find ./test -name '*.test.js' | xargs c8 --reporter=lcov --reporter=text -- node --test"
   },
   "dependencies": {
-    "commander": "^14.0.2",
-    "fs-extra": "^11.3.2",
-    "read-package-up": "^11.0.0",
-    "write-package": "^7.0.0"
+    "commander": "^14.0.3",
+    "fs-extra": "^11.3.3",
+    "read-package-up": "^12.0.0",
+    "write-package": "^7.2.0"
   },
   "devDependencies": {
     "@uscreen.de/eslint-config-prettystandard-node": "^0.3.0",
