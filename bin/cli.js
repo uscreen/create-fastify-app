@@ -5,8 +5,8 @@ import { fileURLToPath } from 'url'
 import { createRequire } from 'module'
 
 import { program } from 'commander'
-import { readPackageUpSync } from 'read-pkg-up'
-import { writePackage } from 'write-pkg'
+import { readPackageUpSync } from 'read-package-up'
+import { writePackage } from 'write-package'
 import fs from 'fs-extra'
 
 import { spawn } from 'child_process'
