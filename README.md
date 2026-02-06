@@ -70,6 +70,14 @@ $ pnpm dev
 
 ## Changelog
 
+### 2.1.0
+
+#### Changed
+
+- replaced deprecated packages
+- upgraded outdated packages
+- upgraded outdated packages in skeleton
+
 ### 2.0.0
 
 #### Changed
