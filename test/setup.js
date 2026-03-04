@@ -1,7 +1,7 @@
+import { exec } from 'node:child_process'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import fs from 'fs-extra'
-import path from 'path'
-import { exec } from 'child_process'
-import { fileURLToPath } from 'url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 

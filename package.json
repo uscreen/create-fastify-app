@@ -1,16 +1,17 @@
 {
   "name": "@uscreen.de/create-fastify-app",
-  "version": "2.1.0",
-  "description": "cli to create a new @uscreen.de/fastify-app",
-  "main": "index.js",
   "type": "module",
+  "version": "2.1.0",
+  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264",
+  "description": "cli to create a new @uscreen.de/fastify-app",
+  "author": "Marcus Spiegel <spiegel@uscreen.de>",
+  "license": "MIT",
   "homepage": "https://github.com/uscreen/create-fastify-app",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/uscreen/create-fastify-app.git"
   },
-  "author": "Marcus Spiegel <spiegel@uscreen.de>",
-  "license": "MIT",
+  "main": "index.js",
   "bin": {
     "create-fastify-app": "./bin/cli.js"
   },
@@ -33,6 +34,5 @@
     "eslint": "^9.39.3",
     "eslint-plugin-format": "^1.5.0",
     "strip-ansi": "^7.1.2"
-  },
-  "packageManager": "pnpm@10.28.2+sha512.41872f037ad22f7348e3b1debbaf7e867cfd448f2726d9cf74c08f19507c31d2c8e7a11525b983febc2df640b5438dee6023ebb1f84ed43cc2d654d2bc326264"
+  }
 }

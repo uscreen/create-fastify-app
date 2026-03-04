@@ -1,15 +1,16 @@
 #!/usr/bin/env node
 
-import path from 'path'
-import { fileURLToPath } from 'url'
-import { createRequire } from 'module'
+import { spawn } from 'node:child_process'
+import { createRequire } from 'node:module'
+import path from 'node:path'
+import process from 'node:process'
 
+import { fileURLToPath } from 'node:url'
 import { program } from 'commander'
-import { readPackageUpSync } from 'read-package-up'
-import { writePackage } from 'write-package'
 import fs from 'fs-extra'
+import { readPackageUpSync } from 'read-package-up'
 
-import { spawn } from 'child_process'
+import { writePackage } from 'write-package'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -22,19 +23,21 @@ let skeleton
 /**
  * ensure path of new app
  */
-const ensurePath = (path) => fs.ensureDir(path)
+const ensurePath = path => fs.ensureDir(path)
 
 /**
  * init new pnpm project
  */
-const initializePnpm = (path) =>
+const initializePnpm = path =>
   new Promise((resolve, reject) => {
     const pnpm = spawn('pnpm', ['init'], {
       cwd: path,
       stdio: [0, 1, 2]
     })
     pnpm.on('close', (code) => {
-      if (code === 0) return resolve(code)
+      if (code === 0) {
+        return resolve(code)
+      }
       /* c8 ignore next */
       reject(code)
     })

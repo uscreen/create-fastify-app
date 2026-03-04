@@ -1,10 +1,10 @@
-import test from 'node:test'
 import assert from 'node:assert/strict'
+import { createRequire } from 'node:module'
+import path from 'node:path'
+import test from 'node:test'
 import fs from 'fs-extra'
-import path from 'path'
-import { createRequire } from 'module'
 import stripAnsi from 'strip-ansi'
-import { before, after, cli, cwd } from './setup.js'
+import { after, before, cli, cwd } from './setup.js'
 
 const require = createRequire(import.meta.url)
 const { version } = require('../package.json')
@@ -12,16 +12,16 @@ const { version } = require('../package.json')
 test.before(before)
 test.after(after)
 
-test('`$ cli` should print error message', async (t) => {
+test('`$ cli` should print error message', async () => {
   const result = await cli([])
   assert.equal(
     true,
-    result.stderr.startsWith("error: missing required argument 'name'"),
+    result.stderr.startsWith('error: missing required argument \'name\''),
     'Should print error message'
   )
 })
 
-test('`$ cli -V` should show correct version', async (t) => {
+test('`$ cli -V` should show correct version', async () => {
   const result = await cli(['--version'])
   assert.equal(true, result.stdout.startsWith(version))
 })

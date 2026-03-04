@@ -9,10 +9,10 @@
 
 This package provides the cli skript to create a new `@uscreen.de/fastify-app` from scratch inside of a monorepo. No need to install any other prerequisites than node and pnpm. Features include:
 
-* initialize new package.json
-* setup __application skeleton__
-* setup __dotfiles__
-* setup __.env__ for starting
+- initialize new package.json
+- setup **application skeleton**
+- setup **dotfiles**
+- setup **.env** for starting
 
 ## Usage
 
@@ -123,7 +123,7 @@ $ pnpm dev
 
 #### Changed
 
-- switch skeleton to __ESM only__
+- switch skeleton to **ESM only**
 - upgrade skeleton to fastify@4.x
 
 ### v0.7.0
