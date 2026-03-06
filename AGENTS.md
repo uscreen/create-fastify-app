@@ -4,17 +4,13 @@ This document provides guidelines for AI coding agents working on this codebase.
 
 ## Project Overview
 
-This is a CLI tool (`create-fastify-app`) that bootstraps new Fastify applications with a predefined skeleton structure. It uses ESM modules, pnpm package manager, and follows the @uscreen.de conventions.
+A CLI tool (`create-fastify-app`) that bootstraps new Fastify applications with a predefined skeleton structure. Uses ESM modules, pnpm package manager, and follows @uscreen.de conventions. The sole source file is `bin/cli.js`; the `skeleton/` directory contains the template files copied into new projects.
 
 ## Build, Lint, and Test Commands
 
-### Linting
 ```bash
-pnpm lint              # Run ESLint with auto-fix
-```
-
-### Testing
-```bash
+pnpm lint              # Run ESLint (check only, no auto-fix)
+pnpm lint:fix          # Run ESLint with auto-fix
 pnpm test              # Run all tests with spec reporter
 pnpm test:cov          # Run tests with HTML and text coverage reports
 pnpm test:ci           # Run tests with lcov coverage for CI
@@ -23,87 +19,79 @@ pnpm test:ci           # Run tests with lcov coverage for CI
 node --test --test-reporter spec ./test/cli.test.js
 ```
 
-### Testing Notes
-- Uses Node.js built-in test runner (node:test)
-- Test files use `.test.js` suffix
-- Tests are located in `./test/` directory
-- Coverage tool: c8
-- Test framework: node:test with assert/strict
+- Uses **Node.js built-in test runner** (`node:test`) — not Jest, Mocha, or any third-party framework
+- Test files use `.test.js` suffix and live in `./test/`
+- Coverage via `c8`; assertions via `node:assert/strict`
 
 ## Code Style Guidelines
 
+### ESLint Configuration
+
+Uses **`@antfu/eslint-config`** with ESLint v9 flat config (`eslint.config.js`):
+
+- **No trailing commas** (`comma-dangle: never`)
+- **No semicolons** (antfu default)
+- **Arrow functions allowed at top level** (`antfu/top-level-function: off`)
+- **`console` calls allowed** (`no-console: off`) — this is a CLI tool
+- `skeleton/` directory is excluded from linting
+- Formatters enabled via `eslint-plugin-format`
+
 ### Module System
-- **ESM only**: Use `import`/`export` syntax
-- File extension: `.js` (with `"type": "module"` in package.json)
+
+- **ESM only** (`"type": "module"` in package.json)
+- File extension: `.js`
 - Use `import.meta.url` for current file path
-- Use `createRequire` from 'module' when needing require functionality
+- Use `createRequire` from `node:module` when `require()` is needed (e.g., reading JSON)
 
-### Imports
+### Import Order
+
 ```javascript
-// Node.js built-ins
-import test from 'node:test'
-import assert from 'node:assert/strict'
-import path from 'path'
-import { fileURLToPath } from 'url'
+// 1. Node.js built-ins (use node: prefix)
+import { spawn } from 'node:child_process'
+import { createRequire } from 'node:module'
+import path from 'node:path'
+import process from 'node:process'
+import { fileURLToPath } from 'node:url'
 
-// Third-party packages
-import fs from 'fs-extra'
+// 2. Third-party packages
 import { program } from 'commander'
+import fs from 'fs-extra'
+import { readPackageUpSync } from 'read-package-up'
 
-// Local modules
-import { before, after, cli } from './setup.js'
+// 3. Local modules (always include .js extension)
+import { after, before, cli } from './setup.js'
 ```
 
-**Import order:**
-1. Node.js built-in modules (prefer `node:` prefix for core modules)
-2. Third-party packages
-3. Local modules (always include `.js` extension)
-
 ### Formatting
-- **Indentation**: 2 spaces (no tabs, except in Makefiles)
-- **Quotes**: Single quotes for strings
-- **Semicolons**: Not required but used in some files
-- **Line endings**: LF (Unix-style)
-- **Trailing whitespace**: Remove
+
+- **Indentation**: 2 spaces
+- **Quotes**: Single quotes
+- **Semicolons**: None (enforced by antfu config)
+- **Trailing commas**: None (enforced by eslint rule)
+- **Line endings**: LF
 - **Final newline**: Required
 - **Charset**: UTF-8
 
 ### Naming Conventions
-- **Files**: kebab-case (e.g., `cli.test.js`, `setup.js`)
-- **Variables/Functions**: camelCase (e.g., `ensurePath`, `initializePnpm`)
+
+- **Files**: kebab-case (`cli.test.js`, `setup.js`)
+- **Variables/Functions**: camelCase (`ensurePath`, `initializePnpm`)
 - **Constants**: camelCase or UPPER_CASE for true constants
-- **Async functions**: Use `async/await` pattern
 
-### Functions
+### Functions and Error Handling
+
+Prefer arrow functions. Use `async/await` for asynchronous operations. Use JSDoc-style block comments above functions. Propagate errors naturally via Promises:
+
 ```javascript
-// Named function expressions for exports
-export default (app, opts, next) => {
-  // route handler
-  next()
-}
+/**
+ * ensure path of new app
+ */
+const ensurePath = path => fs.ensureDir(path)
 
-// Arrow functions for callbacks
-const cli = (args) => {
-  return new Promise((resolve) => {
-    // implementation
-  })
-}
-
-// Async/await for asynchronous operations
-const addPackageConfig = (path, skelPath) => {
-  // sync operations returning promise
-  return writePackage(pack.path, pack.packageJson)
-}
-```
-
-### Error Handling
-- Use Promises and async/await
-- Propagate errors naturally
-- Use `assert` from `node:assert/strict` in tests
-- Test error conditions explicitly
-```javascript
-// Promise-based error handling
-const initializePnpm = (path) =>
+/**
+ * init new pnpm project
+ */
+const initializePnpm = path =>
   new Promise((resolve, reject) => {
     const pnpm = spawn('pnpm', ['init'], { cwd: path, stdio: [0, 1, 2] })
     pnpm.on('close', (code) => {
@@ -113,103 +101,62 @@ const initializePnpm = (path) =>
   })
 ```
 
-### Comments
-- Use JSDoc-style comments for functions
-```javascript
-/**
- * ensure path of new app
- */
-const ensurePath = (path) => fs.ensureDir(path)
-
-/**
- * post-treatment
- */
-server.ready((err) => {
-  if (err) {
-    throw err
-  }
-  // implementation
-})
-```
-
 ### Testing Patterns
+
 ```javascript
-import test from 'node:test'
 import assert from 'node:assert/strict'
+import test from 'node:test'
+import { after, before, cli } from './setup.js'
 
-// Setup/teardown hooks
-test.before(before)
-test.after(after)
+test.before(before)   // creates temp _arena/ directory
+test.after(after)     // removes temp _arena/ directory
 
-// Basic test
-test('description', async (t) => {
-  // test implementation
-  assert.equal(expected, actual, 'message')
+test('basic test', async () => {
+  const result = await cli(['--version'])
+  assert.equal(true, result.stdout.startsWith(version))
 })
 
-// Nested tests
-test('parent test', async (t) => {
-  await t.test('nested test', (t, done) => {
-    // test implementation
+test('nested tests', async (t) => {
+  await t.test('sub-test', (t, done) => {
+    assert.ok(true, 'message')
     done()
   })
 })
 ```
 
-### File Structure
+## File Structure
+
 ```
-/
-├── bin/           # CLI entry points
-├── skeleton/      # Template files for new apps
-│   ├── app/       # App skeleton
-│   └── test/      # Test skeleton
-└── test/          # CLI tool tests
+bin/cli.js            # CLI entry point (sole source file)
+skeleton/             # Template files copied to new projects
+  package.json        # Template dependencies and scripts
+  .env.example        # Example env file (also copied as .env)
+  app/                # Application code template
+    server.js, app.js, config.js, schemas.js
+    plugins/noop.js, services/noop.js
+  test/               # Test template for generated apps
+test/                 # Tests for the CLI tool itself
+  cli.test.js         # CLI integration tests
+  setup.js            # Test helpers (arena dir, cli runner)
+eslint.config.js      # ESLint v9 flat config
 ```
 
-### Dependencies
-- **Runtime**: Use dependencies that support ESM
-- **Dev tools**: ESLint with @uscreen.de/eslint-config-prettystandard-node
-- **Package manager**: pnpm (version specified in packageManager field)
+## Architecture
 
-### Best Practices
-1. Always include file extensions in imports (`.js`)
-2. Use `node:` prefix for Node.js core modules in new code
-3. Prefer `fs-extra` over native `fs` for file operations
-4. Use `path.resolve()` and `path.join()` for cross-platform paths
-5. Avoid deprecated Node.js APIs
-6. Keep functions small and focused
-7. Export functions that can be tested independently
-8. Use descriptive variable and function names
-9. Handle graceful shutdowns (SIGINT, SIGTERM)
-10. Use `assert.ok()` for truthy checks, `assert.equal()` for equality
+The CLI (`bin/cli.js`) creates new apps in five sequential steps:
 
-### ESLint Configuration
-- Extends: `@uscreen.de/eslint-config-prettystandard-node`
-- Config file: `.eslintrc.cjs` (CommonJS format for ESLint config)
+1. **ensurePath** — create target directory via `fs.ensureDir`
+2. **initializePnpm** — run `pnpm init` in the new directory
+3. **addPackageConfig** — merge skeleton's package.json fields into the new package.json
+4. **copySkeleton** — copy skeleton files to target (no overwrite)
+5. **copyEnv** — copy `.env.example` as `.env`
 
-### Git Conventions
-- No specific commit message format enforced
-- Standard .gitignore for Node.js projects
-- Coverage directory is ignored
+## Key Constraints
 
-## Architecture Notes
-
-### CLI Tool (`bin/cli.js`)
-- Uses `commander` for CLI argument parsing
-- Creates new apps by: ensuring path → init pnpm → configure package.json → copy skeleton → copy .env
-- Entry point: `create-fastify-app <name>`
-
-### Skeleton Structure
-- Template application using `@uscreen.de/fastify-app`
-- Uses `fastify-plugin` for plugin registration
-- Config via `env-schema` with dotenv support
-- Autoloads plugins and services from configured directories
-- Includes example noop service and plugin
-
-## Additional Notes for Agents
-
-- This is a **monorepo-friendly** tool - generated apps are designed to work within monorepos
-- Uses **pnpm** exclusively (no npm/yarn)
-- Generated apps support Swagger docs and health check routes
-- Test files should use the built-in Node.js test runner, not third-party frameworks
-- When modifying the skeleton, remember it affects all newly generated apps
+- **pnpm only** — no npm or yarn
+- **Node.js 20+** (CI tests on 20, 22, 24)
+- Skeleton files are not linted (excluded in eslint config)
+- When modifying skeleton files, remember they affect all newly generated apps
+- Prefer `fs-extra` over native `fs` for file operations
+- Always include `.js` extension in local imports
+- Use `node:` prefix for Node.js core module imports
