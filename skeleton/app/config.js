@@ -16,7 +16,7 @@ const schema = {
 
 const config = envSchema({
   schema,
-  dotenv: true
+  dotenv: { quiet: true }
 })
 
 config.autoloads = [join('plugins'), join('services')]
