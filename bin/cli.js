@@ -51,6 +51,8 @@ const addPackageConfig = (path, skelPath) => {
   const pack = readPackageUpSync({ cwd: path })
   delete pack.packageJson._id
   delete pack.packageJson.readme
+  // drop `devEngines` injected by `pnpm init` (caret range breaks `pnpm install`)
+  delete pack.packageJson.devEngines
 
   pack.packageJson.main = skelPack.packageJson.main
   pack.packageJson.type = skelPack.packageJson.type

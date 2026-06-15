@@ -76,6 +76,10 @@ test('`$ cli new-app` should succeed', async (t) => {
       pack.main === 'app/server.js',
       'package.json was correctly enriched with data'
     )
+    assert.ok(
+      pack.devEngines === undefined,
+      'devEngines injected by `pnpm init` was stripped'
+    )
 
     done()
   })
