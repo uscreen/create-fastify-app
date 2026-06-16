@@ -70,6 +70,17 @@ $ pnpm dev
 
 ## Changelog
 
+### 2.2.1
+
+#### Fixed
+
+- strip `devEngines` (injected by `pnpm init`) from the generated `package.json`; its caret range broke `pnpm install`
+- silenced dotenv injection banner in skeleton config
+
+#### Changed
+
+- upgraded outdated packages
+
 ### 2.2.0
 
 - upgraded outdated packages
