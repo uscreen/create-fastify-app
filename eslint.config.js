@@ -8,8 +8,7 @@ export default antfu({
     'coverage/**',
     '*.d.ts',
     'pnpm-workspace.yaml',
-    '**/*.md/*.js',
-    'AGENTS.md'
+    '**/*.md/*.js'
   ]
 }, {
   rules: {
