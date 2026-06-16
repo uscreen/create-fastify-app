@@ -6,6 +6,7 @@ export default antfu({
   ignores: [
     'skeleton/',
     'coverage/**',
+    '.serena/',
     '*.d.ts',
     'pnpm-workspace.yaml',
     '**/*.md/*.js'
