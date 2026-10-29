@@ -44,7 +44,7 @@ There is no flag/option surface beyond `<name>` and `--version`; the old `-y` fl
 
 - **Skeleton tests need `--ignore-workspace`.** The repo root has a `pnpm-workspace.yaml`, so a plain `pnpm install` inside `skeleton/` (or a generated app under this tree) silently no-ops. Use `pnpm install --ignore-workspace` when working inside the skeleton.
 - `skeleton/` is **excluded from linting** (see `eslint.config.js` ignores). Don't expect lint to catch issues there.
-- pnpm only (no npm/yarn). Node 20+; CI matrix is 20/22/24, `.nvmrc` pins 24.
+- pnpm only (no npm/yarn). Node 22+; CI matrix is 22/24/26, `.nvmrc` pins 24.
 
 ## Style
 
