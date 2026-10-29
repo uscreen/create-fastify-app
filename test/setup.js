@@ -14,7 +14,9 @@ export const cli = (args) => {
       { cwd },
       (error, stdout, stderr) => {
         resolve({
-          code: error && error.code ? error.code : 0,
+          code: error && error.code
+            ? error.code
+            : 0,
           error,
           stdout,
           stderr
